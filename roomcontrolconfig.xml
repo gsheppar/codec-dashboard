@@ -1,0 +1,68 @@
+﻿
+<Extensions>
+  <Version>1.1</Version>
+  <Panel>
+    <Name>Support</Name>
+    <Icon>Concierge</Icon>
+    <Type>Home</Type>
+    <Page>
+      <Name>Support Services</Name>
+      <Row>
+        <Name>Call help desk</Name>
+        <Widget>
+          <WidgetId>widget_1</WidgetId>
+          <Type>Button</Type>
+          <Options>size=1;icon=phone</Options>
+        </Widget>
+      </Row>
+      <Row>
+        <Name>Request in-person support</Name>
+        <Widget>
+          <WidgetId>widget_2</WidgetId>
+          <Type>Button</Type>
+          <Options>size=1;icon=green</Options>
+        </Widget>
+      </Row>
+      <Row>
+        <Name>Report an issue</Name>
+        <Widget>
+          <WidgetId>widget_3</WidgetId>
+          <Type>Button</Type>
+          <Options>size=1;icon=red</Options>
+        </Widget>
+      </Row>
+    </Page>
+  </Panel>
+  <Panel>
+    <Icon>Concierge</Icon>
+    <Type>InCall</Type>
+    <Name>Support</Name>
+    <Page>
+      <Name>Support Services</Name>
+      <Row>
+        <Name>Call help desk</Name>
+        <Widget>
+          <WidgetId>widget_4</WidgetId>
+          <Type>Button</Type>
+          <Options>size=1;icon=phone</Options>
+        </Widget>
+      </Row>
+      <Row>
+        <Name>Request in-person support</Name>
+        <Widget>
+          <WidgetId>widget_5</WidgetId>
+          <Type>Button</Type>
+          <Options>size=1;icon=green</Options>
+        </Widget>
+      </Row>
+      <Row>
+        <Name>Report an issue</Name>
+        <Widget>
+          <WidgetId>widget_6</WidgetId>
+          <Type>Button</Type>
+          <Options>size=1;icon=red</Options>
+        </Widget>
+      </Row>
+    </Page>
+  </Panel>
+</Extensions>
