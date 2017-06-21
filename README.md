@@ -13,6 +13,7 @@ This sparkbot can receive alarms from a Codec (using http feedback), and can sen
 
 
 <h1>Files:</h1>
+
 * boy.py = main file that receives POST from codec, and responds to requests from Sparkbot
 * envfile = contains all variables (username, password,bot room, id, token etc)
 * roomcontrolconfig.xml =  for customizing Touch10 panels
@@ -22,6 +23,7 @@ This sparkbot can receive alarms from a Codec (using http feedback), and can sen
 
 
 <h1>Tasks:</h1>
+
 1.Install repo and Run Docker
 2.Create sparkbot
 3.Create sparkbot webhook
