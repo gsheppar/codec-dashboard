@@ -22,13 +22,13 @@ This sparkbot can receive alarms from a Codec (using http feedback), and can sen
 
 
 <h1>Tasks:</h1>
-1. install repo and Run Docker
-2. create sparkbot
-3. create sparkbot webhook
-4. add sparkbot to room
-5. configure codec and add webhook
-6. update ENV file with local variables
-7. build and run docker file
+1.Install repo and Run Docker
+2.Create sparkbot
+3.Create sparkbot webhook
+4.Add sparkbot to room
+5.Configure codec and add webhook
+6.Update ENV file with local variables
+7.Build and run docker file
 
 <h1> Steps:</h1>
 <h2> 1. Install Repo and Docker</h2>
@@ -42,22 +42,20 @@ e.g.
     ngrok  http 5000
 ```
 
-<h2>Create sparkbot</h2>
+<h2>2. Create sparkbot</h2>
 https://developer.ciscospark.com/
 create a BOT (My Apps) and generate a token
 
+Create a Space Space and add the Bot
+    Make a note of your Bot access token, as you will need it
 
-
-<h2>Create a Space Space and add the Bot</h2>
-note: the Bot access token
-
-Confirm the room id
+Confirm the room id, as you'll need it later.
     API Reference > Rooms > List
 ```
 note: the room ID
 ```
 
-<h2>Create webhook</h2>
+<h2>3. Create webhook</h2>
 Create a Webhook for your Sparkbot
    API Reference > Webhook > Create a Webhook
     Add Authorization Bearer token (should be auto populated)
@@ -68,13 +66,13 @@ Create a Webhook for your Sparkbot
    (you can list existing ones if needed)
 
 
-<h2>Add sparkbot to room</h2>
+<h2>4. Add sparkbot to room</h2>
 Create a room/space in Spark and add your Sparkbot.
 
 Test by sending a message to the bot in your Space.  A message should appear in the docker console logs.
 note: the sparkbot will work in both direct (a.k.a 1-on-1)  and group spaces, but this script has been developed for a group room where the codec bot is mentioned in the room and parsed out.
 
-<h2>Configure codec and add webhook</h2>
+<h2>5. Configure codec and add webhook</h2>
 To enable the API on the codec, make sure you have SSH and HTTP/HTTPS enabled.
 Create user account for api (optional, but recommended)
 
@@ -92,10 +90,10 @@ To check feedback POSTs are being sent from codec, use CLI commands:
 ```
 
 http://www.cisco.com/c/dam/en/us/td/docs/telepresence/endpoint/ce83/codec-sx10-api-reference-guide-ce83.pdf
-Update ENV file with local variables
+<h2>6. Update ENV file with local variables</h2>
 Set the OS ENV file with Spark bot details, token, roomId, codec user names etc.
 
-<h2>Build and run docker file</h2>
+<h2>7. Build and run docker file</h2>
 Build the file
 note: Make sure you are in the correct directory
 ```
