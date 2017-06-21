@@ -24,13 +24,13 @@ This sparkbot can receive alarms from a Codec (using http feedback), and can sen
 
 <h1>Tasks:</h1>
 
-1.Install repo and Run Docker
-2.Create sparkbot
-3.Create sparkbot webhook
-4.Add sparkbot to room
-5.Configure codec and add webhook
-6.Update ENV file with local variables
-7.Build and run docker file
+1. Install repo and Run Docker
+2. Create sparkbot
+3. Create sparkbot webhook
+4. Add sparkbot to room
+5. Configure codec and add webhook
+6. Update ENV file with local variables
+7. Build and run docker file
 
 <h1> Steps:</h1>
 <h2> 1. Install Repo and Docker</h2>
@@ -42,6 +42,25 @@ Ensure reachability from docker python server and to codec and cisco spark.  I u
 ```
 e.g.
     ngrok  http 5000
+```
+when running, it will look like this:
+```
+ngrok by @inconshreveable                                                                                                              (Ctrl+C to quit)
+
+Session Status                online
+Version                       2.2.4
+Region                        United States (us)
+Web Interface                 http://127.0.0.1:4040
+Forwarding                    http://this.is.the.http.url.you.want -> localhost:5000
+Forwarding                    https://this.is.the.https.url.you.want -> localhost:5000
+
+Connections                   ttl     opn     rt1     rt5     p50     p90
+                              266     0       0.00    0.00    0.90    2.19
+
+HTTP Requests
+-------------
+
+POST /                         200 OK
 ```
 
 <h2>2. Create sparkbot</h2>
