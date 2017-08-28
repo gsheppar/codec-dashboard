@@ -6,12 +6,12 @@
         "DiagAlert": "No",
         "IP": "10.116.250.184",
         "NetworkAlert": "No",
-        "Occupied": "No",
+        "Occupied": "Yes",
         "Packetloss": "N/A",
         "People": "N/A",
         "SIP": "Registered",
         "SIPAlert": "No",
-        "Status": "Standby",
+        "Status": "Off",
         "SystemName": "Graham Sheppard Home SX20 AMER"
     },
     {

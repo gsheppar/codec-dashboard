@@ -15,8 +15,10 @@ from codec.actions import get_status, send_survey, send_register, get_last, get_
 
 codec_username= config.codec_username
 codec_password= config.codec_password
-gmail_user= config.gmail_user
-gmail_pwd= config.gmail_pwd
+email_user= config.email_user
+email_pwd= config.email_pwd
+email_dest = config.email_dest
+email_server = config.email_server
 
 path=os.path.abspath(os.curdir)
 log = path + "/message_log.txt"
@@ -284,19 +286,20 @@ def codec_inventory(check):
             codec['IP'] = check['Event']['Identification']['IPAddress']['Value']
 
 def send_email(subject, body):
-    FROM = gmail_user
-    TO = ['gsheppar@gmail.com']
+    FROM = email_user
+    TO = email_dest
     SUBJECT = subject
     TEXT = body
+    SERVER = email_server
 
     # Prepare actual message
     message = """From: %s\nTo: %s\nSubject: %s\n\n%s
     """ % (FROM, ", ".join(TO), SUBJECT, TEXT)
     try:
         # SMTP_SSL Example
-        server_ssl = smtplib.SMTP_SSL("smtp.gmail.com", 465)
+        server_ssl = smtplib.SMTP_SSL(SERVER, 465)
         server_ssl.ehlo()  # optional, called by login()
-        server_ssl.login(gmail_user, gmail_pwd)
+        server_ssl.login(email_user, email_pwd)
         # ssl server doesn't support or need tls, so don't call server_ssl.starttls()
         server_ssl.sendmail(FROM, TO, message)
         # server_ssl.quit()

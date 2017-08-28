@@ -25,7 +25,6 @@
           </tr>
         </thead>
           <tbody>
-          {% if systemdown == "0"  %}
             <tr>
               <td>{{systemsdown}}</td>
               <td>{{diagerrors}}</td>
@@ -33,15 +32,6 @@
               <td>{{activecalls}}</td>
               <td>{{occupiedrooms}}</td>
             </tr>
-          {% else %}
-           <tr>
-              <td bgcolor="#FF0000">{{systemsdown}}</td>
-              <td>{{diagerrors}}</td>
-              <td>N/A</td>
-              <td>{{activecalls}}</td>
-              <td>{{occupiedrooms}}</td>
-            </tr>
-          {% endif %}
           </tbody>
       </div>
 </div>
