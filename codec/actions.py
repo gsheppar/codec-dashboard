@@ -2,7 +2,7 @@ import requests
 from lxml import etree
 from requests.packages.urllib3.exceptions import InsecureRequestWarning
 import config
-from codec.templates import survey, register, last
+from codec.templates import survey, register, last, dial
 
 requests.packages.urllib3.disable_warnings(InsecureRequestWarning)
 
@@ -61,7 +61,7 @@ def get_people(host):
     return data
 
 def get_loss(host):
-    data = "No"
+    data = "N/A"
     return data
 
 def get_diag(host):
@@ -100,3 +100,18 @@ def get_last(host):
         return (callinfo)
     except:
         return ("Failed getting last call info")
+
+def send_dial(host):
+    codec_username = config.codec_username
+    codec_password = config.codec_password
+    url = 'http://{}/putxml'.format(host)
+    payload = dial
+    headers = {'Content-Type': 'text/xml'}
+    try:
+        dialresponsefromcodec = requests.post(url, data=payload, verify=False, timeout=2, headers=headers, auth=(codec_username, codec_password))
+        if dialresponsefromcodec.ok:
+            return ("Successfully sent dial command to codec")
+        else:
+            return ("problem sending dial command - error was {}".format(dialresponsefromcodec.text))
+    except:
+        return ("Timed out. Problem sending command")

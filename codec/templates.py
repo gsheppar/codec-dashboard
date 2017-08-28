@@ -11,22 +11,6 @@ Incorrect
 e.g message = """ <?xml version="1.0"?>
 
 '''
-message = """<?xml version="1.0"?>
-<Command>
-  <UserInterface>
-    <Message>
-      <Prompt>
-        <Display command="True"> 
-          <Title>Video Services</Title>
-          <Text>{}</Text>
-          <FeedbackId>2</FeedbackId>
-          <Option.1>Acknowledge</Option.1>
-        </Display>
-      </Prompt>
-    </Message>
-  </UserInterface>
-</Command>
-"""
 
 survey = """<?xml version="1.0"?>
 <Command>
@@ -51,7 +35,7 @@ survey = """<?xml version="1.0"?>
 dial = """<?xml version="1.0"?>
 <Command>
     <Dial command="True">
-        <Number>{}</Number>
+        <Number>loopback@cisco.com</Number>
     </Dial> 
 </Command>
 """
@@ -66,13 +50,12 @@ register = """<?xml version="1.0"?>
 			<Expression item="1">/Event/CallDisconnect</Expression>
 			<Expression item="2">/Event/UserInterface/Message</Expression>
 			<Expression item="3">/Status/Call</Expression>
+			<Expression item="4">/Event/UserInterface/Extensions/Widget</Expression>
 		</Register>
 	</HttpFeedback> 
 </Command>
 """
 
-# Template for collecting call history.
-# xcommand CallHistory Recents DetailLevel: Full Limit:
 last = """<?xml version="1.0"?>
 <Command>
 	<CallHistory>

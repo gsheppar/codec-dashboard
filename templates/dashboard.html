@@ -12,7 +12,8 @@
       </script>
       <div class="row">
           <h2>Dashboard</h2>
-          <h4>({{roomnum}} Monitored Conference Rooms)</h4>
+          <h3>({{roomnum}} Monitored Conference Rooms)</h3>
+          <font size="5" face="Times New Roman" >
       <table id="rooms" class="table" width="100%">
         <thead>
           <tr>
@@ -24,13 +25,23 @@
           </tr>
         </thead>
           <tbody>
-          <tr>
+          {% if systemdown == "0"  %}
+            <tr>
               <td>{{systemsdown}}</td>
               <td>{{diagerrors}}</td>
               <td>N/A</td>
               <td>{{activecalls}}</td>
               <td>{{occupiedrooms}}</td>
-          </tr>
+            </tr>
+          {% else %}
+           <tr>
+              <td bgcolor="#FF0000">{{systemsdown}}</td>
+              <td>{{diagerrors}}</td>
+              <td>N/A</td>
+              <td>{{activecalls}}</td>
+              <td>{{occupiedrooms}}</td>
+            </tr>
+          {% endif %}
           </tbody>
       </div>
 </div>

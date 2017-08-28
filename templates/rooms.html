@@ -19,7 +19,6 @@
             <th>In Call</th>
             <th>Active Packet Loss</th>
             <th>Occupied</th>
-            <th>Booked By</th>
             <th>People</th>
             <th>SIP Status</th>
             <th>Diag Errors</th>
@@ -33,18 +32,16 @@
                     <td>{{ r['Call'] }}</td>
                     <td>{{ r['Packetloss'] }}</td>
                     <td>{{ r['Occupied'] }}</td>
-                    <td>{{ r['Booked'] }}</td>
                     <td>{{ r['People'] }}</td>
                     <td bgcolor="#FF0000">{{ r['SIP'] }}</td>
                     <td>{{ r['Diag'] }}</td>
                     </tr>
-                {% elif r['Diag'] == 'Yes'  %}
+                {% elif r['Diag'] == 'Errors'  %}
                     <tr>
                     <td><a href="https://{{ r['IP'] }}">{{ r['SystemName'] }}</a></td>
                     <td>{{ r['Call'] }}</td>
                     <td>{{ r['Packetloss'] }}</td>
                     <td>{{ r['Occupied'] }}</td>
-                    <td>{{ r['Booked'] }}</td>
                     <td>{{ r['People'] }}</td>
                     <td>{{ r['SIP'] }}</td>
                     <td bgcolor="#FF0000">{{ r['Diag'] }}</td>
@@ -52,10 +49,9 @@
                 {% elif r['Call'] == 'Yes'  %}
                     <tr>
                     <td><a href="https://{{ r['IP'] }}">{{ r['SystemName'] }}</a></td>
-                    <td bgcolor="#FF0000">{{ r['Call'] }}</td>
-                    <td bgcolor="#FF0000">{{ r['Packetloss'] }}</td>
-                    <td bgcolor="#FF0000">{{ r['Occupied'] }}</td>
-                    <td>{{ r['Booked'] }}</td>
+                    <td bgcolor="#FFFF33">{{ r['Call'] }}</td>
+                    <td bgcolor="#FFFF33">{{ r['Packetloss'] }}</td>
+                    <td bgcolor="#FFFF33">{{ r['Occupied'] }}</td>
                     <td>{{ r['People'] }}</td>
                     <td>{{ r['SIP'] }}</td>
                     <td>{{ r['Diag'] }}</td>
@@ -66,7 +62,6 @@
                     <td bgcolor="#FFFF33">{{ r['Call'] }}</td>
                     <td bgcolor="#FFFF33">{{ r['Packetloss'] }}</td>
                     <td bgcolor="#FFFF33">{{ r['Occupied'] }}</td>
-                    <td>{{ r['Booked'] }}</td>
                     <td>{{ r['People'] }}</td>
                     <td>{{ r['SIP'] }}</td>
                     <td>{{ r['Diag'] }}</td>
@@ -77,7 +72,6 @@
                     <td bgcolor="#00FF00">{{ r['Call'] }}</td>
                     <td bgcolor="#00FF00">{{ r['Packetloss'] }}</td>
                     <td bgcolor="#00FF00">{{ r['Occupied'] }}</td>
-                    <td>{{ r['Booked'] }}</td>
                     <td>{{ r['People'] }}</td>
                     <td>{{ r['SIP'] }}</td>
                     <td>{{ r['Diag'] }}</td>
