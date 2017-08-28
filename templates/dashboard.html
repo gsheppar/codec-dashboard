@@ -1,0 +1,37 @@
+{% extends 'base.html' %}
+{% block title %}Conference Rooms{% endblock %}
+
+
+{% block body %}
+<div class="container text-center">
+      <script type="text/javascript">
+        var timer = function() {
+        setTimeout(function(){ window.location.reload(); }, 15000);
+        };
+        timer();
+      </script>
+      <div class="row">
+          <h2>Dashboard</h2>
+          <h4>({{roomnum}} Monitored Conference Rooms)</h4>
+      <table id="rooms" class="table" width="100%">
+        <thead>
+          <tr>
+            <th bgcolor="#D3D3D3"><p style="text-align: center;">Systems down</p></th>
+            <th bgcolor="#D3D3D3"><p style="text-align: center;">Diag Errors</p></th>
+            <th bgcolor="#D3D3D3"><p style="text-align: center;">Active Packet Loss</p></th>
+            <th bgcolor="#D3D3D3"><p style="text-align: center;">Active Calls</p></th>
+            <th bgcolor="#D3D3D3"><p style="text-align: center;">Occupied Rooms</p></th>
+          </tr>
+        </thead>
+          <tbody>
+          <tr>
+              <td>{{systemsdown}}</td>
+              <td>{{diagerrors}}</td>
+              <td>N/A</td>
+              <td>{{activecalls}}</td>
+              <td>{{occupiedrooms}}</td>
+          </tr>
+          </tbody>
+      </div>
+</div>
+{% endblock %}

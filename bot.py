@@ -1,80 +1,294 @@
+import csv
+import datetime
 import json
 import os
+import smtplib
+import threading
 
-from ciscosparkbot import SparkBot
-from flask import request, make_response
+from flask import request, make_response, Flask, render_template
 
-from codec.actions import get_whoami, send_message, get_diag, send_dial, get_last
+import config
 
-bot_email = os.getenv("SPARK_BOT_EMAIL")
-spark_token = os.getenv("SPARK_BOT_TOKEN")
-bot_url = os.getenv("SPARK_BOT_URL")
-bot_roomid = os.getenv("SPARK_BOT_ROOMID")
-bot_app_name = os.getenv("SPARK_BOT_APP_NAME")
-codec_username = os.getenv("CODEC_USERNAME")
-codec_password = os.getenv("CODEC_PASSWORD")
+bot = Flask(__name__)
 
+from codec.actions import get_status, send_survey, send_register, get_last, get_sip, get_people, get_loss, get_diag
 
-bot = SparkBot(bot_app_name, spark_bot_token=spark_token,
-               spark_bot_url=bot_url, spark_bot_email=bot_email, debug=True)
+codec_username= config.codec_username
+codec_password= config.codec_password
+gmail_user= config.gmail_user
+gmail_pwd= config.gmail_pwd
 
+path=os.path.abspath(os.curdir)
+log = path + "/message_log.txt"
+
+###############################
+
+def get_rooms():
+    with open('codec/codec.json') as data_file:
+        data = json.load(data_file)
+    return data
+
+def get_surveys():
+    now = datetime.datetime.now()
+    now_str = now.strftime("%Y-%m")
+    surveycsv = 'survey/Feedback-{}.csv'.format(now_str)
+    surveyjson = 'survey/Feedback-{}.json'.format(now_str)
+    with open(surveycsv) as f:
+        reader = csv.DictReader(f, skipinitialspace=True)
+        rows = list(reader)
+    with open(surveyjson, 'w') as data_file:
+        data_file.write(json.dumps(rows, sort_keys=True, indent=4, separators=(',', ': ')))
+    with open(surveyjson) as data_file:
+        data = json.load(data_file)
+    return data
+
+@bot.route('/')
+def hello():
+    return dashboard()
+
+@bot.route('/rooms', methods=['GET','POST'])
+def rooms():
+    if request.method == 'GET':
+        return render_template('rooms.html')
+    elif request.method == 'POST':
+        rooms = get_rooms()
+        return render_template('rooms.html', rooms=rooms)
+
+@bot.route('/surveys', methods=['GET', 'POST'])
+def surveys():
+    if request.method == 'GET':
+        return render_template('surveys.html')
+    elif request.method == 'POST':
+        surveys = get_surveys()
+        return render_template('surveys.html', surveys=surveys)
+
+@bot.route('/dashboard', methods=['GET', 'POST'])
+def dashboard():
+    sytemsdown = 0
+    activecalls = 0
+    occupiedrooms = 0
+    diagerrors = "No"
+    roomnum = 0
+    packetloss = "N/A"
+    with open('codec/codec.json') as data_file:
+        data = json.load(data_file)
+    for codec in data:
+        roomnum += 1
+        if (codec['NetworkAlert'] == "Yes" or codec['SIPAlert'] == "Yes"):
+            sytemsdown += 1
+        if (codec['Occupied'] == "Yes"):
+            occupiedrooms += 1
+        if (codec['Call'] == "Yes"):
+            activecalls += 1
+        if (codec['Diag'] == "Errors"):
+            diagerrors = "Yes"
+    return render_template('dashboard.html', systemsdown=sytemsdown, activecalls=activecalls, occupiedrooms=occupiedrooms, diagerrors=diagerrors, packetloss=packetloss, roomnum=roomnum)
+
+@bot.route('/surveygraph', methods=['GET', 'POST'])
+def surveygraph():
+    numexcellent = 0
+    numgood = 0
+    numpoor = 0
+    numnone = 0
+    now = datetime.datetime.now()
+    now_str = now.strftime("%Y-%m")
+    surveyjson = 'survey/Feedback-{}.json'.format(now_str)
+    with open(surveyjson) as data_file:
+        data = json.load(data_file)
+    for codec in data:
+        if (codec['Quality'] == "Excellent"):
+            numexcellent += 1
+        if (codec['Quality'] == "Good"):
+            numgood += 1
+        if (codec['Quality'] == "Poor"):
+            numpoor += 1
+        if (codec['Quality'] == "No response"):
+            numnone += 1
+    return render_template('surveygraph.html', numexcellent=numexcellent, numgood=numgood, numpoor=numpoor, numnone=numnone)
+
+###############################
 
 @bot.route('/codec', methods=['POST'])
 def receivepostfromcodec():
-    response = request.data
+    f = open(log, "a")
+    f.write("\n")
+    f.write(request.data)
+    now = datetime.datetime.now()
+    now_str = now.strftime("%Y-%m")
+    surveycsv = 'survey/Feedback-{}.csv'.format(now_str)
+    if not os.path.exists(surveycsv):
+        outFile = open(surveycsv, 'w')
+        outFile.write("SystemName, Quality, Booked, Call Number, Start Time, Duration, Out Video Loss, In Video Loss")
+        outFile.close()
+        print "Create new csv survey file"
+    # Check if codec exsists
     try:
-        # check to see if a button was clicked
         data = json.loads(request.data)
-        action=data['Event']['UserInterface']['Extensions']['Widget']['Action']['Type']['Value']
-        print("Received action type: {}".format(action))
+        action = data['Event']['Register']
+        print("Received status call: {}".format(action))
+        codec_inventory(data)
+    except Exception as e:
+        print("Request did not contain any action type: {}".format(e))
+    # Call Connection
+    try:
+        data = json.loads(request.data)
+        action = data['Status']['Call'][0]['Status']['Value']
+        print("Received status call: {}".format(action))
+        if action == "Connected":
+            host = data['Status']['Identification']['IPAddress']['Value']
+            with open('codec/codec.json', 'r') as data_file:
+                data = json.load(data_file)
+            for codec in data:
+                 if (codec['IP'] == host):
+                    codec["Call"] = "Yes"
+            with open('codec/codec.json', 'w') as data_file:
+                data_file.write(json.dumps(data, sort_keys=True, indent=4, separators=(',', ': ')))
+    except Exception as e:
+        print("Request did not contain any action type: {}".format(e))
+    # Send Survey
+    try:
+        data = json.loads(request.data)
+        action = data['Event']['CallDisconnect']['CauseType']['Value']
+        print("Received status call: {}".format(action))
+        if (action == "LocalDisconnect" or action == "RemoteDisconnect"):
+            host = data['Event']['Identification']['IPAddress']['Value']
+            print send_survey(host)
+    except Exception as e:
+        print("Request did not contain any action type: {}".format(e))
+    # Survey Feedback
+    try:
+        data = json.loads(request.data)
+        action = data['Event']['UserInterface']['Message']['Prompt']['Response']['FeedbackId']['Value']
+        ip = data['Event']['Identification']['IPAddress']['Value']
+        host = data['Event']['Identification']['SystemName']['Value']
+        booked = "N/A, "
+        if (action == "1"):
+            response = data['Event']['UserInterface']['Message']['Prompt']['Response']['OptionId']['Value']
+            callinfo = get_last(ip)
+            outFilecsv = open(surveycsv, 'a')
+            if (response == "1"):
+                calldetail = host + ", " + "Excellent, " + booked + callinfo
+                outFilecsv.write("\n")
+                outFilecsv.write(calldetail)
+            elif (response == "2"):
+                calldetail = host + ", " + "Good, " + booked + callinfo
+                outFilecsv.write("\n")
+                outFilecsv.write(calldetail)
+            elif (response == "3"):
+                calldetail = host + ", " + "Poor, " + booked + callinfo
+                outFilecsv.write("\n")
+                outFilecsv.write(calldetail)
+            else:
+                calldetail = host + ", " + "No Response, " + booked + callinfo
+                outFilecsv.write("\n")
+                outFilecsv.write(calldetail)
+            outFilecsv.close()
+            with open('codec/codec.json', 'r') as data_file:
+                data = json.load(data_file)
+            for codec in data:
+                if (codec['IP'] == ip):
+                    codec["Call"] = "No"
+            with open('codec/codec.json', 'w') as data_file:
+                data_file.write(json.dumps(data, sort_keys=True, indent=4, separators=(',', ': ')))
+        return make_response("ok")
     except Exception as e:
         # log any errors (brief)
-        print("Request did not contain any action type: {}".format(e))
+#        print("Request did not contain any action type: {}".format(e))
         return make_response("ok")
 
-    # determine appropriate action based on event
-    print("Attempting to determine response for received action:")
-    if action == 'clicked':
-        # gather some details about the clicked action
-        print(data)
-        button_pressed = data['Event']['UserInterface']['Extensions']['Widget']['Action']['WidgetId']['Value']
+###############################
 
-        identification = data['Event']['Identification']
-        SysName = identification['SystemName']['Value']
-        SysVersion = identification['SWVersion']['Value']
-        msg2spark = "Received message from room **{}** (running {}).  User pressed button: **{}**".format(SysName,SysVersion,button_pressed)
-        message = bot.spark.messages.create(roomId=bot_roomid, markdown=msg2spark)
-        return make_response("ok")
-    else:
-        print("nothing to do")
-        return make_response("ok")
+def check_status():
+    threading.Timer(30.0, check_status).start()
+    with open('codec/codec.json', 'r') as data_file:
+        data = json.load(data_file)
+    for codec in data:
+        status = get_status(codec['IP'])
+        sip = get_sip(codec['IP'])
+        people = get_people(codec['IP'])
+        packetloss = get_loss(codec['IP'])
+        diagstatus = get_diag(codec['IP'])
+        codec['SIP'] = sip
+        codec['Status'] = status
+        codec['People'] = people
+        codec['Packetloss'] = packetloss
+        if (diagstatus != "None"):
+            codec['Diag'] = "Errors"
+        else:
+            codec['Diag'] = diagstatus
+        # Update if occupied
+        if codec['Status'] == "Off":
+            codec['Occupied'] = "Yes"
+        else:
+            codec['Occupied'] = "No"
+        # Network and SIP alerts
+        if (codec['Status'] == "Down" and codec['NetworkAlert'] == "No"):
+            print "Send email now system down"
+            codec['NetworkAlert'] = "Yes"
+            codec['Occupied'] = "Down"
+            print codec['Occupied']
+            sub = codec['SystemName'] + " Down"
+            bod = "System is not reachable at: https://" + codec['IP']
+            send_email(sub, bod)
+        elif (codec['Status'] != "Down" and codec['NetworkAlert'] == "Yes"):
+            print "Send email now system up"
+            codec['NetworkAlert'] = "No"
+            codec['Occupied'] = "No"
+            sub = codec['SystemName'] + " Up"
+            bod = "System is now reachable at: https://" + codec['IP']
+            send_email(sub, bod)
+        elif (codec['SIP'] != "Registered" and codec['SIPAlert'] == "No"):
+            if codec['NetworkAlert'] == "No":
+                print "Send email now system is not registered"
+                codec['SIPAlert'] = "Yes"
+                sub = codec['SystemName'] + " not registered"
+                bod = "System is not registered"
+                send_email(sub, bod)
+        elif (codec['SIP'] == "Registered" and codec['SIPAlert'] == "Yes"):
+            print "Send email now system is registered"
+            codec['SIPAlert'] = "No"
+            sub = codec['SystemName'] + " is registered"
+            bod = "System is now registered"
+            send_email(sub, bod)
+    with open('codec/codec.json', 'w') as data_file:
+        data_file.write(json.dumps(data, sort_keys=True, indent=4, separators=(',', ': ')))
 
+def codec_register():
+    with open('codec/codec.json', 'r') as data_file:
+        data = json.load(data_file)
+    for codec in data:
+        print send_register(codec['IP'])
 
-bot.add_command('diag',
-                "get the diagnostics from a codec. \
-                e.g. `@{} diag 10.1.1.1`".format(bot_email.split('@')[0]),
-                get_diag)
-bot.add_command('dial',
-                "remotely dial a URI/Number from a codec. \
-                e.g. `@{} dial 10.1.1.1 loopback@cisco.com`".format(bot_email.split('@')[0]),
-                send_dial)
-# bot.add_command(':list',
-#                "display a list of all the codecs. \
-#                e.g. `@{} :list`".format(bot_email.split('@')[0]),
-#                list)
-bot.add_command('last', "display call history from a codec. \
-                e.g. `@{} last 10.1.1.1 5`".format(bot_email.split('@')[0]),
-                get_last)
-bot.add_command('send',
-                "send a message to a codec. \
-                e.g. `@{} send 10.1.1.1 <message e.g. I will be over in 5 minutes>`".format(bot_email.split('@')[0]),
-               send_message)
-# bot.add_command(':question',
-#                "send a yes/no question to a codec. \
-#                e.g. `@{} my_codec:question Can I help you?`".format(bot_email.split('@')[0]),
-#                question)
-bot.add_command('whoami',
-                "display codec details \
-                e.g. `@{} whoami 10.1.1.1`".format(bot_email.split('@')[0]),
-                get_whoami)
+def codec_inventory(check):
+    with open('codec/codec.json', 'r') as data_file:
+        data = json.load(data_file)
+    for codec in data:
+        if (codec['SystemName'] == check['Event']['Identification']['SystemName']['Value']):
+            codec['IP'] = check['Event']['Identification']['IPAddress']['Value']
+
+def send_email(subject, body):
+    FROM = gmail_user
+    TO = ['gsheppar@gmail.com']
+    SUBJECT = subject
+    TEXT = body
+
+    # Prepare actual message
+    message = """From: %s\nTo: %s\nSubject: %s\n\n%s
+    """ % (FROM, ", ".join(TO), SUBJECT, TEXT)
+    try:
+        # SMTP_SSL Example
+        server_ssl = smtplib.SMTP_SSL("smtp.gmail.com", 465)
+        server_ssl.ehlo()  # optional, called by login()
+        server_ssl.login(gmail_user, gmail_pwd)
+        # ssl server doesn't support or need tls, so don't call server_ssl.starttls()
+        server_ssl.sendmail(FROM, TO, message)
+        # server_ssl.quit()
+        server_ssl.close()
+        print 'successfully sent the mail'
+    except:
+        print "failed to send mail"
+
+check_status()
+codec_register()
+
 bot.run(host='0.0.0.0', port=5000)

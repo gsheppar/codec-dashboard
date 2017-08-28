@@ -1,0 +1,70 @@
+{% extends 'base.html' %}
+{% block title %}Conference Rooms{% endblock %}
+
+
+
+{% block body %}
+<h2><p style="text-align: center;">Call Details</p></h2>
+
+<div class="container-fluid">
+    <form action="/surveys" method="post">
+         <button type="submit" class="btn" Style="width: 200px; margin-bottom: 10px;">Refresh Surveys</button>
+     </form>
+    <input id='myInput' onkeyup='searchTable()' type='text' placeholder="Search here">
+    <div class="row">
+      <table id="surveys" class="table">
+        <thead>
+          <tr id='tableHeader'>
+            <th>SystemName</th>
+            <th>Quality</th>
+            <th>Booked By</th>
+            <th>Call Number</th>
+            <th>Start Time</th>
+            <th>Duration Min</th>
+            <th>Video Loss In</th>
+            <th>Video Loss Out</th>
+          </tr>
+        </thead>
+        <tbody>
+            {% for r in surveys %}
+            <tr>
+            <td>{{ r['SystemName'] }}</td>
+            <td>{{ r['Quality'] }}</td>
+            <td>{{ r['Booked'] }}</td>
+            <td>{{ r['Call Number'] }}</td>
+            <td>{{ r['Start Time'] }}</td>
+            <td>{{ r['Duration'] }}</td>
+            <td>{{ r['Video Loss In'] }}</td>
+            <td>{{ r['Video Loss Out'] }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+      </table>
+    </div>
+</div>
+
+<script>
+function searchTable() {
+    var input, filter, found, table, tr, td, i, j;
+    input = document.getElementById("myInput");
+    filter = input.value.toUpperCase();
+    table = document.getElementById("surveys");
+    tr = table.getElementsByTagName("tr");
+    for (i = 0; i < tr.length; i++) {
+        td = tr[i].getElementsByTagName("td");
+        for (j = 0; j < td.length; j++) {
+            if (td[j].innerHTML.toUpperCase().indexOf(filter) > -1) {
+                found = true;
+            }
+        }
+        if (found) {
+            tr[i].style.display = "";
+            found = false;
+        } else {
+            if (tr[i].id != 'tableHeader'){tr[i].style.display = "none";}
+        }
+    }
+}
+</script>
+
+{% endblock %}

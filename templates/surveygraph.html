@@ -1,0 +1,45 @@
+{% extends 'base.html' %}
+{% block title %}Conference Rooms{% endblock %}
+
+
+{% block body %}
+<div class="container text-center">
+    <div class="row">
+    <h2>Monthly Surveys</h2>
+        <script type="text/javascript" src="https://www.google.com/jsapi"></script>
+        <div id="chart_div"  style="width: 900px; height: 300px;"><div>
+
+          <script type='text/javascript'>//<![CDATA[
+          google.load('visualization', '1', {packages: ['corechart', 'bar']});
+          google.setOnLoadCallback(drawBasic);
+
+          function drawBasic() {
+          var data = google.visualization.arrayToDataTable([
+          ['Reponse', 'Count', { role: 'style' }],
+          ['Excellent', {{numexcellent}}, 'green'],
+          ['Good', {{numgood}}, 'yellow'],
+          ['Poor', {{numpoor}}, 'red'],
+          ['No Response', {{numnone}}, 'black']
+          ]);
+
+          var options = {
+          title: '',
+          legend: 'none',
+          chartArea: {width: '75%'},
+          hAxis: {
+          title: 'Number',
+          minValue: 0
+          },
+          vAxis: {
+          title: 'Response'
+          }
+          };
+          var chart = new google.visualization.BarChart(document.getElementById('chart_div'));
+          chart.draw(data, options);
+          }
+          //]]>
+        </script>
+        </div>
+    </div>
+</div>
+{% endblock %}

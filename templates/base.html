@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <style>
+        form {
+        display: inline;
+        }
+        table, th, td {
+        border: 2px solid black;
+        }
+        input {
+        border: 2px solid black;
+        }
+    </style>
+    <meta charset="UTF-8">
+    <title>{% block title %}{% endblock %}</title>
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+    <link href="https://cdn.datatables.net/1.10.12/css/jquery.dataTables.min.css" rel="stylesheet">
+    <script src="https://code.jquery.com/jquery-1.12.3.js"></script>
+    <script src="https://cdn.datatables.net/1.10.12/js/jquery.dataTables.min.js"></script>
+    <script src="https://cdn.datatables.net/1.10.12/js/dataTables.bootstrap.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+</head>
+<div class="jumbotron text-center">
+        <a>
+            <img src="/static/tp-image.png" heigh="50" width="350">
+        </a>
+    <p><br></p>
+    <div class="btn-group">
+        <form action="/dashboard" method="post">
+            <button type="submit" class="btn btn-success" Style="width: 200px; margin-bottom: 10px;">Dashboard</button>
+        </form>
+        <form action="/rooms" method="post">
+            <button type="submit" class="btn btn-primary" Style="width: 200px; margin-bottom: 10px;">Show Rooms</button>
+        </form>
+        <form action="/surveys" method="post">
+            <button type="submit" class="btn btn-info" Style="width: 200px; margin-bottom: 10px;">Call Details</button>
+        </form>
+        <form action="/surveygraph" method="post">
+            <button type="submit" class="btn btn-danger" Style="width: 200px; margin-bottom: 10px;">Graph Surveys</button>
+        </form>
+    </div>
+</div>
+
+{% block alerts %}{% endblock %}
+
+<body>{% block body %}{% endblock %}</body>
+
+
+</html>

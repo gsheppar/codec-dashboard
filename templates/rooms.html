@@ -1,0 +1,116 @@
+{% extends 'base.html' %}
+{% block title %}Conference Rooms{% endblock %}
+
+
+{% block body %}
+
+<h2><p style="text-align: center;">Conference Rooms</p></h2>
+
+<div class="container-fluid">
+     <form action="/rooms" method="post">
+         <button type="submit" class="btn" Style="width: 200px; margin-bottom: 10px;">Refresh Rooms</button>
+     </form>
+    <input id='myInput' onkeyup='searchTable()' type='text' placeholder="Search here">
+    <div class="row">
+      <table id="rooms" class="table">
+        <thead>
+          <tr id='tableHeader'>
+            <th>SystemName</th>
+            <th>In Call</th>
+            <th>Active Packet Loss</th>
+            <th>Occupied</th>
+            <th>Booked By</th>
+            <th>People</th>
+            <th>SIP Status</th>
+            <th>Diag Errors</th>
+          </tr>
+        </thead>
+        <tbody>
+            {% for r in rooms %}
+                {% if ((r['NetworkAlert'] == 'Yes') or (r['SIPAlert'] == 'Yes'))  %}
+                    <tr>
+                    <td><a href="https://{{ r['IP'] }}">{{ r['SystemName'] }}</a></td>
+                    <td>{{ r['Call'] }}</td>
+                    <td>{{ r['Packetloss'] }}</td>
+                    <td>{{ r['Occupied'] }}</td>
+                    <td>{{ r['Booked'] }}</td>
+                    <td>{{ r['People'] }}</td>
+                    <td bgcolor="#FF0000">{{ r['SIP'] }}</td>
+                    <td>{{ r['Diag'] }}</td>
+                    </tr>
+                {% elif r['Diag'] == 'Yes'  %}
+                    <tr>
+                    <td><a href="https://{{ r['IP'] }}">{{ r['SystemName'] }}</a></td>
+                    <td>{{ r['Call'] }}</td>
+                    <td>{{ r['Packetloss'] }}</td>
+                    <td>{{ r['Occupied'] }}</td>
+                    <td>{{ r['Booked'] }}</td>
+                    <td>{{ r['People'] }}</td>
+                    <td>{{ r['SIP'] }}</td>
+                    <td bgcolor="#FF0000">{{ r['Diag'] }}</td>
+                    </tr>
+                {% elif r['Call'] == 'Yes'  %}
+                    <tr>
+                    <td><a href="https://{{ r['IP'] }}">{{ r['SystemName'] }}</a></td>
+                    <td bgcolor="#FF0000">{{ r['Call'] }}</td>
+                    <td bgcolor="#FF0000">{{ r['Packetloss'] }}</td>
+                    <td bgcolor="#FF0000">{{ r['Occupied'] }}</td>
+                    <td>{{ r['Booked'] }}</td>
+                    <td>{{ r['People'] }}</td>
+                    <td>{{ r['SIP'] }}</td>
+                    <td>{{ r['Diag'] }}</td>
+                    </tr>
+                {% elif r['Occupied'] == 'Yes'  %}
+                    <tr>
+                    <td><a href="https://{{ r['IP'] }}">{{ r['SystemName'] }}</a></td>
+                    <td bgcolor="#FFFF33">{{ r['Call'] }}</td>
+                    <td bgcolor="#FFFF33">{{ r['Packetloss'] }}</td>
+                    <td bgcolor="#FFFF33">{{ r['Occupied'] }}</td>
+                    <td>{{ r['Booked'] }}</td>
+                    <td>{{ r['People'] }}</td>
+                    <td>{{ r['SIP'] }}</td>
+                    <td>{{ r['Diag'] }}</td>
+                    </tr>
+                {% else %}
+                    <tr>
+                    <td><a href="https://{{ r['IP'] }}">{{ r['SystemName'] }}</a></td>
+                    <td bgcolor="#00FF00">{{ r['Call'] }}</td>
+                    <td bgcolor="#00FF00">{{ r['Packetloss'] }}</td>
+                    <td bgcolor="#00FF00">{{ r['Occupied'] }}</td>
+                    <td>{{ r['Booked'] }}</td>
+                    <td>{{ r['People'] }}</td>
+                    <td>{{ r['SIP'] }}</td>
+                    <td>{{ r['Diag'] }}</td>
+                    </tr>
+                {% endif %}
+            {% endfor %}
+        </tbody>
+      </table>
+    </div>
+</div>
+
+<script>
+function searchTable() {
+    var input, filter, found, table, tr, td, i, j;
+    input = document.getElementById("myInput");
+    filter = input.value.toUpperCase();
+    table = document.getElementById("rooms");
+    tr = table.getElementsByTagName("tr");
+    for (i = 0; i < tr.length; i++) {
+        td = tr[i].getElementsByTagName("td");
+        for (j = 0; j < td.length; j++) {
+            if (td[j].innerHTML.toUpperCase().indexOf(filter) > -1) {
+                found = true;
+            }
+        }
+        if (found) {
+            tr[i].style.display = "";
+            found = false;
+        } else {
+            if (tr[i].id != 'tableHeader'){tr[i].style.display = "none";}
+        }
+    }
+}
+</script>
+
+{% endblock %}

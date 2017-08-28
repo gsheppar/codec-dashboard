@@ -1,0 +1,122 @@
+[
+    {
+        "Booked": "N/A",
+        "Call Number": "sip:tac-loopback2@cisco.com",
+        "Duration": "3",
+        "Quality": "Excellent",
+        "Start Time": "2017-08-25T13:29:01",
+        "SystemName": "Graham Sheppard Home DX80 AMER",
+        "Video Loss In": "0",
+        "Video Loss Out": "0"
+    },
+    {
+        "Booked": "N/A",
+        "Call Number": "sip:tac-loopback2@cisco.com",
+        "Duration": "2",
+        "Quality": "Good",
+        "Start Time": "2017-08-25T13:31:33",
+        "SystemName": "Graham Sheppard Home DX80 AMER",
+        "Video Loss In": "0",
+        "Video Loss Out": "0"
+    },
+    {
+        "Booked": "N/A",
+        "Call Number": "sip:tac-loopback2@cisco.com",
+        "Duration": "287",
+        "Quality": "Poor",
+        "Start Time": "2017-08-25T13:32:42",
+        "SystemName": "Graham Sheppard Home DX80 AMER",
+        "Video Loss In": "0",
+        "Video Loss Out": "0"
+    },
+    {
+        "Booked": "N/A",
+        "Call Number": "sip:tac-loopback2@cisco.com",
+        "Duration": "12",
+        "Quality": "Good",
+        "Start Time": "2017-08-25T13:39:21",
+        "SystemName": "Graham Sheppard Home DX80 AMER",
+        "Video Loss In": "0",
+        "Video Loss Out": "0"
+    },
+    {
+        "Booked": "N/A",
+        "Call Number": "sip:tac-loopback2@cisco.com",
+        "Duration": "138",
+        "Quality": "Excellent",
+        "Start Time": "2017-08-25T13:42:16",
+        "SystemName": "Graham Sheppard Home DX80 AMER",
+        "Video Loss In": "0",
+        "Video Loss Out": "0"
+    },
+    {
+        "Booked": "N/A",
+        "Call Number": "sip:tac-loopback2@cisco.com",
+        "Duration": "0",
+        "Quality": "Excellent",
+        "Start Time": "2017-08-25T13:50:10",
+        "SystemName": "Graham Sheppard Home DX80 AMER",
+        "Video Loss In": "0",
+        "Video Loss Out": "0"
+    },
+    {
+        "Booked": "N/A",
+        "Call Number": "sip:ddechiar@cisco.com",
+        "Duration": "15",
+        "Quality": "No Response",
+        "Start Time": "2017-08-25T13:50:54",
+        "SystemName": "Graham Sheppard Home DX80 AMER",
+        "Video Loss In": "0",
+        "Video Loss Out": "0"
+    },
+    {
+        "Booked": "N/A",
+        "Call Number": "sip:tac-loopback2@cisco.com",
+        "Duration": "0",
+        "Quality": "Good",
+        "Start Time": "2017-08-25T14:24:03",
+        "SystemName": "Graham Sheppard Home DX80 AMER",
+        "Video Loss In": "0",
+        "Video Loss Out": "0"
+    },
+    {
+        "Booked": "N/A",
+        "Call Number": "sip:88942000@cisco.com",
+        "Duration": "0",
+        "Quality": "Excellent",
+        "Start Time": "2017-08-25T14:25:19",
+        "SystemName": "Graham Sheppard Home DX80 AMER",
+        "Video Loss In": "0",
+        "Video Loss Out": "0"
+    },
+    {
+        "Booked": "N/A",
+        "Call Number": "sip:4085256800@cisco.com",
+        "Duration": "23",
+        "Quality": "Excellent",
+        "Start Time": "2017-08-28T08:31:15",
+        "SystemName": "Graham Sheppard Home DX80 AMER",
+        "Video Loss In": "0",
+        "Video Loss Out": "0"
+    },
+    {
+        "Booked": "N/A",
+        "Call Number": "sip:4085256800@cisco.com",
+        "Duration": "51",
+        "Quality": "Good",
+        "Start Time": "2017-08-28T09:00:04",
+        "SystemName": "Graham Sheppard Home DX80 AMER",
+        "Video Loss In": "0",
+        "Video Loss Out": "0"
+    },
+    {
+        "Booked": "N/A",
+        "Call Number": "sip:ddechiar@cisco.com",
+        "Duration": "0",
+        "Quality": "Excellent",
+        "Start Time": "2017-08-28T09:51:52",
+        "SystemName": "Graham Sheppard Home DX80 AMER",
+        "Video Loss In": "0",
+        "Video Loss Out": "0"
+    }
+]

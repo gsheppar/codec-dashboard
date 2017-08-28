@@ -1,4 +1,5 @@
 ciscosparkbot
 requests
+requests[security]
 lxml
 flask

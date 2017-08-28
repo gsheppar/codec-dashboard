@@ -6,6 +6,7 @@ envfile
 scratchfile*
 junk*
 config*
+*log.txt
 
 # C extensions
 *.so
