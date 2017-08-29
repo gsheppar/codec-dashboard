@@ -7,6 +7,7 @@ Building a Web dashboard to display/alert on codec information
 * Web Dashboard Survey and call detail reports
 * Web Dashboard Survey graphs
 
+![alt text](./static/screenshot.png "screenshot")
 
 <h1>Files:</h1>
 
