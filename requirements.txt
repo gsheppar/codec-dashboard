@@ -3,3 +3,4 @@ requests
 requests[security]
 lxml
 flask
+xmltodict
