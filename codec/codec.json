@@ -16,17 +16,17 @@
     },
     {
         "Booked": "N/A",
-        "Call": "Yes",
+        "Call": "No",
         "Diag": "None",
         "DiagAlert": "No",
         "IP": "10.116.250.180",
         "NetworkAlert": "No",
-        "Occupied": "Yes",
-        "Packetloss": "No",
+        "Occupied": "No",
+        "Packetloss": "N/A",
         "People": "N/A",
         "SIP": "Registered",
         "SIPAlert": "No",
-        "Status": "Off",
+        "Status": "Standby",
         "SystemName": "Graham Sheppard Home DX80 AMER"
     }
 ]

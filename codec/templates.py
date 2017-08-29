@@ -35,7 +35,7 @@ survey = """<?xml version="1.0"?>
 dial = """<?xml version="1.0"?>
 <Command>
     <Dial command="True">
-        <Number>loopback@cisco.com</Number>
+        <Number>{}</Number>
     </Dial> 
 </Command>
 """

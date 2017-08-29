@@ -9,12 +9,11 @@ from flask import request, make_response, Flask, render_template
 
 import config
 
-bot = Flask(__name__)
-
 from codec.actions import get_status, send_survey, send_register, get_last, get_sip, get_people, get_loss, get_diag, send_dial
 
-codec_username= config.codec_username
-codec_password= config.codec_password
+###############################
+# Retrieved from config.py
+
 email_user= config.email_user
 email_pwd= config.email_pwd
 email_dest = config.email_dest
@@ -24,6 +23,11 @@ path=os.path.abspath(os.curdir)
 log = path + "/message_log.txt"
 
 ###############################
+
+bot = Flask(__name__)
+
+###############################
+#Functions for displaying webpages
 
 def get_rooms():
     with open('codec/codec.json') as data_file:
@@ -111,12 +115,15 @@ def surveygraph():
     return render_template('surveygraph.html', numexcellent=numexcellent, numgood=numgood, numpoor=numpoor, numnone=numnone)
 
 ###############################
+#Functions for codec feedbakc
 
 @bot.route('/codec', methods=['POST'])
 def receivepostfromcodec():
+    #logging all requests
     f = open(log, "a")
     f.write("\n")
     f.write(request.data)
+    #Check if survey file for this month is there if not create one
     now = datetime.datetime.now()
     now_str = now.strftime("%Y-%m")
     surveycsv = 'survey/Feedback-{}.csv'.format(now_str)
@@ -145,6 +152,7 @@ def receivepostfromcodec():
                     codec["Call"] = "Yes"
                     codec["SystemName"] = name
                     newunit = "No"
+            #Create new codec in codec.json file
             if newunit == "Yes":
                 print "New unit found"
                 entry = {"Booked": "N/A", "Call": "Yes", "Diag": "None", "DiagAlert": "No", "IP": host,
@@ -157,7 +165,7 @@ def receivepostfromcodec():
                 data_file.write(json.dumps(data, sort_keys=True, indent=4, separators=(',', ': ')))
     except Exception as e:
         print "Request did not contain any action type: Call Connected"
-    # Send Survey
+    # Send survey if call disconnects
     try:
         data = json.loads(request.data)
         action = data['Event']['CallDisconnect']['CauseType']['Value']
@@ -177,7 +185,7 @@ def receivepostfromcodec():
             send_dial(host)
     except Exception as e:
         print "Request did not contain any action type: Widget Clicked"
-    # Survey Feedback
+    # Survey feedback response
     try:
         data = json.loads(request.data)
         action = data['Event']['UserInterface']['Message']['Prompt']['Response']['FeedbackId']['Value']
@@ -219,6 +227,7 @@ def receivepostfromcodec():
 
 ###############################
 
+# Check status of codecs
 def check_status():
     threading.Timer(30.0, check_status).start()
     with open('codec/codec.json', 'r') as data_file:
@@ -278,19 +287,14 @@ def check_status():
     with open('codec/codec.json', 'w') as data_file:
         data_file.write(json.dumps(data, sort_keys=True, indent=4, separators=(',', ': ')))
 
+# Register all codecs
 def codec_register():
     with open('codec/codec.json', 'r') as data_file:
         data = json.load(data_file)
     for codec in data:
         print send_register(codec['IP'])
 
-def codec_inventory(check):
-    with open('codec/codec.json', 'r') as data_file:
-        data = json.load(data_file)
-    for codec in data:
-        if (codec['SystemName'] == check['Event']['Identification']['SystemName']['Value']):
-            codec['IP'] = check['Event']['Identification']['IPAddress']['Value']
-
+# Email alerts
 def send_email(subject, body):
     FROM = email_user
     TO = email_dest
@@ -318,3 +322,6 @@ check_status()
 codec_register()
 
 bot.run(host='0.0.0.0', port=5000)
+
+#if __name__ == "__main__":
+#    bot.run(ssl_context=('cert.pem', 'key.pem'))

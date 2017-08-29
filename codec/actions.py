@@ -7,9 +7,11 @@ from codec.templates import survey, register, last, dial
 
 requests.packages.urllib3.disable_warnings(InsecureRequestWarning)
 
+codec_username = config.codec_username
+codec_password = config.codec_password
+
+
 def get_status(host):
-    codec_username = config.codec_username
-    codec_password = config.codec_password
     url = 'http://{}/getxml?location=/Status/Standby'.format(host)
     try:
         response = requests.get(url, verify=False, timeout=2, auth=(codec_username, codec_password))
@@ -21,8 +23,6 @@ def get_status(host):
         return("Down")
 
 def get_sip(host):
-    codec_username = config.codec_username
-    codec_password = config.codec_password
     url = 'http://{}/getxml?location=/Status/SIP/Registration'.format(host)
     try:
         response = requests.get(url, verify=False, timeout=2, auth=(codec_username, codec_password))
@@ -34,8 +34,6 @@ def get_sip(host):
         return("Down")
 
 def send_survey(host):
-    codec_username = config.codec_username
-    codec_password = config.codec_password
     url = 'http://{}/putxml'.format(host)
     payload = survey
     headers = {'Content-Type': 'text/xml'}
@@ -46,8 +44,6 @@ def send_survey(host):
         return("Failed survey to host: " + host)
 
 def send_register(host):
-    codec_username = config.codec_username
-    codec_password = config.codec_password
     url = 'http://{}/putxml'.format(host)
     payload = register
     headers = {'Content-Type': 'text/xml'}
@@ -62,8 +58,6 @@ def get_people(host):
     return data
 
 def get_loss(host):
-    codec_username = config.codec_username
-    codec_password = config.codec_password
     url = 'http://{}/getxml?location=/Status/MediaChannels'.format(host)
     try:
         response = requests.get(url, verify=False, timeout=2, auth=(codec_username, codec_password))
@@ -88,8 +82,6 @@ def get_loss(host):
         return "N/A"
 
 def get_diag(host):
-    codec_username = config.codec_username
-    codec_password = config.codec_password
     url = 'http://{}//getxml?location=/Status/Diagnostics'.format(host)
     try:
         diagresponse = requests.get(url, verify=False, timeout=2, auth=(codec_username, codec_password))
@@ -105,8 +97,6 @@ def get_diag(host):
         return("None")
 
 def get_last(host):
-    codec_username = config.codec_username
-    codec_password = config.codec_password
     url = 'http://{}/putxml'.format(host)
     payload = last
     headers = {'Content-Type': 'text/xml'}
@@ -125,10 +115,8 @@ def get_last(host):
         return ("Failed getting last call info")
 
 def send_dial(host):
-    codec_username = config.codec_username
-    codec_password = config.codec_password
     url = 'http://{}/putxml'.format(host)
-    payload = dial
+    payload = dial.format(support_number)
     headers = {'Content-Type': 'text/xml'}
     try:
         dialresponsefromcodec = requests.post(url, data=payload, verify=False, timeout=2, headers=headers, auth=(codec_username, codec_password))

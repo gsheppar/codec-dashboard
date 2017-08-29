@@ -6,6 +6,10 @@ envfile
 scratchfile*
 junk*
 config.py*
+cert.crt*
+cert.pem*
+key.key*
+key.pem*
 *log.txt
 
 # C extensions
