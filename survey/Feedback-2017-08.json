@@ -298,5 +298,15 @@
         "SystemName": "Graham Sheppard Home DX80 AMER",
         "Video Loss In": "0",
         "Video Loss Out": "0"
+    },
+    {
+        "Booked": "N/A",
+        "Call Number": "sip:4085256800@cisco.com",
+        "Duration": "30",
+        "Quality": "Good",
+        "Start Time": "2017-08-28T15:01:45",
+        "SystemName": "Graham Sheppard Home DX80 AMER",
+        "Video Loss In": "0",
+        "Video Loss Out": "0"
     }
 ]

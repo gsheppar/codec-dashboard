@@ -71,7 +71,7 @@ def dashboard():
     occupiedrooms = 0
     diagerrors = "No"
     roomnum = 0
-    packetloss = "N/A"
+    packetloss = "No"
     with open('codec/codec.json') as data_file:
         data = json.load(data_file)
     for codec in data:
@@ -84,6 +84,8 @@ def dashboard():
             activecalls += 1
         if (codec['Diag'] == "Errors"):
             diagerrors = "Yes"
+        if (codec['Packetloss'] == "Yes"):
+            packetloss = "Yes"
     return render_template('dashboard.html', systemsdown=sytemsdown, activecalls=activecalls, occupiedrooms=occupiedrooms, diagerrors=diagerrors, packetloss=packetloss, roomnum=roomnum)
 
 @bot.route('/surveygraph', methods=['GET', 'POST'])
@@ -231,6 +233,10 @@ def check_status():
         codec['Status'] = status
         codec['People'] = people
         codec['Packetloss'] = packetloss
+        # Update call status
+        if (packetloss == "N/A"):
+            codec['Call'] = "No"
+        #Update diagstatus
         if (diagstatus != "None"):
             codec['Diag'] = "Errors"
         else:

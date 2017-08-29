@@ -1,0 +1,20 @@
+﻿<Extensions>
+  <Version>1.4</Version>
+  <Panel>
+    <Icon>Concierge</Icon>
+    <Type>Home</Type>
+    <Page>
+      <Name>Support Services</Name>
+      <Row>
+        <Name>Call help desk</Name>
+        <Widget>
+          <WidgetId>widget_1</WidgetId>
+          <Type>Button</Type>
+          <Options>size=1;icon=phone</Options>
+        </Widget>
+      </Row>
+      <Options>hideRowNames=0</Options>
+    </Page>
+    <Name>Support</Name>
+  </Panel>
+</Extensions>

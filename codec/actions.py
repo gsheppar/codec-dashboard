@@ -1,4 +1,5 @@
 import requests
+import xmltodict
 from lxml import etree
 from requests.packages.urllib3.exceptions import InsecureRequestWarning
 import config
@@ -61,8 +62,30 @@ def get_people(host):
     return data
 
 def get_loss(host):
-    data = "N/A"
-    return data
+    codec_username = config.codec_username
+    codec_password = config.codec_password
+    url = 'http://{}/getxml?location=/Status/MediaChannels'.format(host)
+    try:
+        response = requests.get(url, verify=False, timeout=2, auth=(codec_username, codec_password))
+        xml_dict = xmltodict.parse(response.content)
+        check = xml_dict["Status"]["MediaChannels"]
+        if check != "None":
+            channels = xml_dict["Status"]["MediaChannels"]["Call"]["Channel"]
+            for channel in channels:
+                if "Video" in channel.keys() and channel["Video"]["ChannelRole"] == "Main":
+                    direction = channel["Direction"]
+                    if direction == "Incoming":
+                        lossin = float(channel["Netstat"]["Loss"])
+                    else:
+                        lossout = float(channel["Netstat"]["Loss"])
+            if ((lossin > 5) or (lossout > 5)):
+                return "Yes"
+            else:
+                return "No"
+        else:
+            return "N/A"
+    except:
+        return "N/A"
 
 def get_diag(host):
     codec_username = config.codec_username
