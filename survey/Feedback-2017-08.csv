@@ -1,4 +1,4 @@
-SystemName, Quality, Booked, Call Number, Start Time, Duration, Video Loss In, Video Loss Out
+SystemName, Quality, Booked, Call Number, Start Time, Duration, In/Out Video Loss, In/Out Audio Loss
 Graham Sheppard Home DX80 AMER, Excellent, N/A, sip:tac-loopback2@cisco.com, 2017-08-25T13:29:01, 3, 0, 0
 Graham Sheppard Home DX80 AMER, Good, N/A, sip:tac-loopback2@cisco.com, 2017-08-25T13:31:33, 2, 0, 0
 Graham Sheppard Home DX80 AMER, Poor, N/A, sip:tac-loopback2@cisco.com, 2017-08-25T13:32:42, 287, 0, 0
@@ -30,3 +30,8 @@ Graham Sheppard Home DX80 AMER, Excellent, N/A, sip:4085256800@cisco.com, 2017-0
 Graham Sheppard Home DX80 AMER, Excellent, N/A, sip:4085256800@cisco.com, 2017-08-28T14:31:05, 25, 0, 0
 Graham Sheppard Home DX80 AMER, Excellent, N/A, sip:tac-loopback2@cisco.com, 2017-08-28T14:58:12, 0, 0, 0
 Graham Sheppard Home DX80 AMER, Good, N/A, sip:4085256800@cisco.com, 2017-08-28T15:01:45, 30, 0, 0
+Graham Sheppard Home DX80 AMER, Excellent, N/A, sip:4085256800@cisco.com, 2017-08-29T15:32:20, 13, 0, 0
+Graham Sheppard Home DX80 AMER, Excellent, N/A, sip:4085256800@cisco.com, 2017-08-29T15:47:08, 33, 0, 0
+Graham Sheppard Home DX80 AMER, Excellent, N/A, sip:tac-loopback2@cisco.com, 2017-08-30T08:58:17, 2, 0, 0
+Graham Sheppard Home DX80 AMER, Excellent, N/A, sip:blaveck@acecloud.webex.com, 2017-08-30T12:01:26, 20, 0/0, 0/ 0
+Graham Sheppard Home DX80 AMER, No Response, N/A, sip:ddechiar@cisco.com, 2017-08-30T12:22:18, 3, 0/0, 0/ 0

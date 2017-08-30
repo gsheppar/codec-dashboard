@@ -21,8 +21,8 @@
             <th>Call Number</th>
             <th>Start Time</th>
             <th>Duration Min</th>
-            <th>Video Loss In</th>
-            <th>Video Loss Out</th>
+            <th>In/Out Video Loss</th>
+            <th>In/Out Audio Loss</th>
           </tr>
         </thead>
         <tbody>
@@ -34,8 +34,8 @@
             <td>{{ r['Call Number'] }}</td>
             <td>{{ r['Start Time'] }}</td>
             <td>{{ r['Duration'] }}</td>
-            <td>{{ r['Video Loss In'] }}</td>
-            <td>{{ r['Video Loss Out'] }}</td>
+            <td>{{ r['In/Out Video Loss'] }}</td>
+            <td>{{ r['In/Out Audio Loss'] }}</td>
             </tr>
             {% endfor %}
         </tbody>

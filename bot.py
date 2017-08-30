@@ -75,7 +75,8 @@ def dashboard():
     occupiedrooms = 0
     diagerrors = "No"
     roomnum = 0
-    packetloss = "No"
+    videopacketloss = "No"
+    audiopacketloss = "No"
     with open('codec/codec.json') as data_file:
         data = json.load(data_file)
     for codec in data:
@@ -88,9 +89,11 @@ def dashboard():
             activecalls += 1
         if (codec['Diag'] == "Errors"):
             diagerrors = "Yes"
-        if (codec['Packetloss'] == "Yes"):
-            packetloss = "Yes"
-    return render_template('dashboard.html', systemsdown=sytemsdown, activecalls=activecalls, occupiedrooms=occupiedrooms, diagerrors=diagerrors, packetloss=packetloss, roomnum=roomnum)
+        if (codec['VideoPacketloss'] == "Yes"):
+            videopacketloss = "Yes"
+        if (codec['AudioPacketloss'] == "Yes"):
+            audiopacketloss = "Yes"
+    return render_template('dashboard.html', systemsdown=sytemsdown, activecalls=activecalls, occupiedrooms=occupiedrooms, diagerrors=diagerrors, videopacketloss=videopacketloss, audiopacketloss=audiopacketloss, roomnum=roomnum)
 
 @bot.route('/surveygraph', methods=['GET', 'POST'])
 def surveygraph():
@@ -129,7 +132,7 @@ def receivepostfromcodec():
     surveycsv = 'survey/Feedback-{}.csv'.format(now_str)
     if not os.path.exists(surveycsv):
         outFile = open(surveycsv, 'w')
-        outFile.write("SystemName, Quality, Booked, Call Number, Start Time, Duration, Out Video Loss, In Video Loss")
+        outFile.write("SystemName, Quality, Booked, Call Number, Start Time, Duration, In/Out Video Loss, In/Out Audio Loss")
         outFile.close()
         print "Create new csv survey file"
     # Call Connection and codec check
@@ -156,7 +159,7 @@ def receivepostfromcodec():
             if newunit == "Yes":
                 print "New unit found"
                 entry = {"Booked": "N/A", "Call": "Yes", "Diag": "None", "DiagAlert": "No", "IP": host,
-                         "NetworkAlert": "No", "Occupied": "No", "Packetloss": "No", "People": "N/A",
+                         "NetworkAlert": "No", "Occupied": "No", "AudioPacketloss": "No", "VideoPacketloss": "No", "People": "N/A",
                          "SIP": "Registered", "SIPAlert": "No", "Status": "Standby",
                          "SystemName": name}
                 data.append(entry)
@@ -236,15 +239,18 @@ def check_status():
         status = get_status(codec['IP'])
         sip = get_sip(codec['IP'])
         people = get_people(codec['IP'])
-        packetloss = get_loss(codec['IP'])
+        video, audio = get_loss(codec['IP'])
         diagstatus = get_diag(codec['IP'])
         codec['SIP'] = sip
         codec['Status'] = status
         codec['People'] = people
-        codec['Packetloss'] = packetloss
+        codec['VideoPacketloss'] = video
+        codec['AudioPacketloss'] = audio
         # Update call status
-        if (packetloss == "N/A"):
+        if (video == "N/A" and audio == "N/A"):
             codec['Call'] = "No"
+        else:
+            codec['Call'] = "Yes"
         #Update diagstatus
         if (diagstatus != "None"):
             codec['Diag'] = "Errors"

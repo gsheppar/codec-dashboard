@@ -17,7 +17,8 @@
           <tr id='tableHeader'>
             <th>SystemName</th>
             <th>In Call</th>
-            <th>Active Packet Loss</th>
+            <th>Active Video Packet Loss</th>
+            <th>Active Audio Packet Loss</th>
             <th>Occupied</th>
             <th>People</th>
             <th>SIP Status</th>
@@ -30,7 +31,8 @@
                     <tr>
                     <td><a href="https://{{ r['IP'] }}">{{ r['SystemName'] }}</a></td>
                     <td>{{ r['Call'] }}</td>
-                    <td>{{ r['Packetloss'] }}</td>
+                    <td>{{ r['VideoPacketloss'] }}</td>
+                    <td>{{ r['AudioPacketloss'] }}</td>
                     <td>{{ r['Occupied'] }}</td>
                     <td>{{ r['People'] }}</td>
                     <td bgcolor="#FF0000">{{ r['SIP'] }}</td>
@@ -40,7 +42,8 @@
                     <tr>
                     <td><a href="https://{{ r['IP'] }}">{{ r['SystemName'] }}</a></td>
                     <td>{{ r['Call'] }}</td>
-                    <td>{{ r['Packetloss'] }}</td>
+                    <td>{{ r['VideoPacketloss'] }}</td>
+                    <td>{{ r['AudioPacketloss'] }}</td>
                     <td>{{ r['Occupied'] }}</td>
                     <td>{{ r['People'] }}</td>
                     <td>{{ r['SIP'] }}</td>
@@ -50,7 +53,8 @@
                     <tr>
                     <td><a href="https://{{ r['IP'] }}">{{ r['SystemName'] }}</a></td>
                     <td bgcolor="#FFFF33">{{ r['Call'] }}</td>
-                    <td bgcolor="#FFFF33">{{ r['Packetloss'] }}</td>
+                    <td bgcolor="#FFFF33">{{ r['VideoPacketloss'] }}</td>
+                    <td bgcolor="#FFFF33">{{ r['AudioPacketloss'] }}</td>
                     <td bgcolor="#FFFF33">{{ r['Occupied'] }}</td>
                     <td>{{ r['People'] }}</td>
                     <td>{{ r['SIP'] }}</td>
@@ -60,7 +64,8 @@
                     <tr>
                     <td><a href="https://{{ r['IP'] }}">{{ r['SystemName'] }}</a></td>
                     <td bgcolor="#FFFF33">{{ r['Call'] }}</td>
-                    <td bgcolor="#FFFF33">{{ r['Packetloss'] }}</td>
+                    <td bgcolor="#FFFF33">{{ r['VideoPacketloss'] }}</td>
+                    <td bgcolor="#FFFF33">{{ r['AudioPacketloss'] }}</td>
                     <td bgcolor="#FFFF33">{{ r['Occupied'] }}</td>
                     <td>{{ r['People'] }}</td>
                     <td>{{ r['SIP'] }}</td>
@@ -70,7 +75,8 @@
                     <tr>
                     <td><a href="https://{{ r['IP'] }}">{{ r['SystemName'] }}</a></td>
                     <td bgcolor="#00FF00">{{ r['Call'] }}</td>
-                    <td bgcolor="#00FF00">{{ r['Packetloss'] }}</td>
+                    <td bgcolor="#00FF00">{{ r['VideoPacketloss'] }}</td>
+                    <td bgcolor="#00FF00">{{ r['AudioPacketloss'] }}</td>
                     <td bgcolor="#00FF00">{{ r['Occupied'] }}</td>
                     <td>{{ r['People'] }}</td>
                     <td>{{ r['SIP'] }}</td>

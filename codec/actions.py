@@ -59,9 +59,9 @@ def get_people(host):
 
 def get_loss(host):
     url = 'http://{}/getxml?location=/Status/MediaChannels'.format(host)
+    response = requests.get(url, verify=False, timeout=2, auth=(codec_username, codec_password))
+    xml_dict = xmltodict.parse(response.content)
     try:
-        response = requests.get(url, verify=False, timeout=2, auth=(codec_username, codec_password))
-        xml_dict = xmltodict.parse(response.content)
         check = xml_dict["Status"]["MediaChannels"]
         if check != "None":
             channels = xml_dict["Status"]["MediaChannels"]["Call"]["Channel"]
@@ -70,16 +70,44 @@ def get_loss(host):
                     direction = channel["Direction"]
                     if direction == "Incoming":
                         lossin = float(channel["Netstat"]["Loss"])
+                        pksin = float(channel["Netstat"]["Packets"])
                     else:
                         lossout = float(channel["Netstat"]["Loss"])
-            if ((lossin > 5) or (lossout > 5)):
-                return "Yes"
+                        pksout = float(channel["Netstat"]["Packets"])
+            totalin = lossin/pksin
+            totalout = lossout/pksout
+            if ((totalin > 5) or (totalout > 5)):
+                video = "Yes"
             else:
-                return "No"
+                video = "No"
         else:
-            return "N/A"
+            video = "N/A"
     except:
-        return "N/A"
+        video = "N/A"
+    try:
+        check = xml_dict["Status"]["MediaChannels"]
+        if check != "None":
+            channels = xml_dict["Status"]["MediaChannels"]["Call"]["Channel"]
+            for channel in channels:
+                if "Audio" in channel.keys() and channel["Type"] == "Audio":
+                    direction = channel["Direction"]
+                    if direction == "Incoming":
+                        lossin = float(channel["Netstat"]["Loss"])
+                        pksin = float(channel["Netstat"]["Packets"])
+                    else:
+                        lossout = float(channel["Netstat"]["Loss"])
+                        pksout = float(channel["Netstat"]["Packets"])
+            totalin = lossin / pksin
+            totalout = lossout / pksout
+            if ((totalin > 5) or (totalout > 5)):
+                audio = "Yes"
+            else:
+                audio = "No"
+        else:
+            audio = "N/A"
+    except:
+        audio = "N/A"
+    return video, audio
 
 def get_diag(host):
     url = 'http://{}//getxml?location=/Status/Diagnostics'.format(host)
@@ -109,7 +137,9 @@ def get_last(host):
         duration = int(float(root.xpath('//Entry/Duration/text()')[0])/60)
         callinfo += ", " + str(duration)
         callinfo += ", " + root.xpath('//Entry/Video/Incoming/PacketLossPercent/text()')[0]
-        callinfo += ", " + root.xpath('//Entry/Video/Outgoing/PacketLossPercent/text()')[0]
+        callinfo += "/" + root.xpath('//Entry/Video/Outgoing/PacketLossPercent/text()')[0]
+        callinfo += ", " + root.xpath('//Entry/Audio/Incoming/PacketLossPercent/text()')[0]
+        callinfo += "/" + root.xpath('//Entry/Audio/Outgoing/PacketLossPercent/text()')[0]
         return (callinfo)
     except:
         return ("Failed getting last call info")
