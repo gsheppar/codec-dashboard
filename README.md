@@ -35,6 +35,6 @@ At this point you should have a basic webserver up and running at http://127.0.0
 
 To add codecs you can register them via the command below and the app will start monitoring then. Recommend to put this in your codec startup script
 
-* xcommand HttpFeedback Register FeedbackSlot: 1 ServerUrl:  http://<IP>/codec Format: JSON Expression: /Event/CallDisconnect Expression: /Event/UserInterface/Message Expression: /Status/Call Expression: /Event/UserInterface/Extensions/Widget
+* xcommand HttpFeedback Register FeedbackSlot: 1 ServerUrl:  http://10.116.250.182:5000/codec Format: JSON Expression: /Event/CallDisconnect Expression: /Event/UserInterface/Message Expression: /Status/Call Expression: /Event/UserInterface/Extensions/Widget
 
 To remove codecs you must delete them from the codec.json file

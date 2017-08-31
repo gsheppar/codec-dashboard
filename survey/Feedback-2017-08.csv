@@ -1,39 +1,5 @@
 SystemName, Quality, Booked, Call Number, Start Time, Duration, In/Out Video Loss, In/Out Audio Loss
-Graham Sheppard Home DX80 AMER, Excellent, N/A, sip:tac-loopback2@cisco.com, 2017-08-25T13:29:01, 3, 0, 0
-Graham Sheppard Home DX80 AMER, Good, N/A, sip:tac-loopback2@cisco.com, 2017-08-25T13:31:33, 2, 0, 0
-Graham Sheppard Home DX80 AMER, Poor, N/A, sip:tac-loopback2@cisco.com, 2017-08-25T13:32:42, 287, 0, 0
-Graham Sheppard Home DX80 AMER, Good, N/A, sip:tac-loopback2@cisco.com, 2017-08-25T13:39:21, 12, 0, 0
-Graham Sheppard Home DX80 AMER, Excellent, N/A, sip:tac-loopback2@cisco.com, 2017-08-25T13:42:16, 138, 0, 0
-Graham Sheppard Home DX80 AMER, Excellent, N/A, sip:tac-loopback2@cisco.com, 2017-08-25T13:50:10, 0, 0, 0
-Graham Sheppard Home DX80 AMER, No Response, N/A, sip:ddechiar@cisco.com, 2017-08-25T13:50:54, 15, 0, 0
-Graham Sheppard Home DX80 AMER, Good, N/A, sip:tac-loopback2@cisco.com, 2017-08-25T14:24:03, 0, 0, 0
-Graham Sheppard Home DX80 AMER, Excellent, N/A, sip:88942000@cisco.com, 2017-08-25T14:25:19, 0, 0, 0
-Graham Sheppard Home DX80 AMER, Excellent, N/A, sip:4085256800@cisco.com, 2017-08-28T08:31:15, 23, 0, 0
-Graham Sheppard Home DX80 AMER, Good, N/A, sip:4085256800@cisco.com, 2017-08-28T09:00:04, 51, 0, 0
-Graham Sheppard Home DX80 AMER, Excellent, N/A, sip:ddechiar@cisco.com, 2017-08-28T09:51:52, 0, 0, 0
-Graham Sheppard Home DX80 AMER, Excellent, N/A, sip:4085256800@cisco.com, 2017-08-28T10:30:57, 16, 0, 0
-Graham Sheppard Home DX80 AMER, Good, N/A, sip:tac-loopback2@cisco.com, 2017-08-28T11:30:17, 0, 0, 0
-Graham Sheppard Home DX80 AMER, Excellent, N/A, sip:tac-loopback2@cisco.com, 2017-08-28T11:32:25, 0, 0, 0
-Graham Sheppard Home DX80 AMER, Excellent, N/A, sip:tac-loopback2@cisco.com, 2017-08-28T11:40:36, 0, 0, 0
-Graham Sheppard Home DX80 AMER, Excellent, N/A, sip:tac-loopback2@cisco.com, 2017-08-28T11:50:23, 0, 0, 0
-Graham Sheppard Home DX80 AMER, Good, N/A, sip:tac-loopback2@cisco.com, 2017-08-28T11:53:39, 0, 0, 0
-Graham Sheppard Home DX80 AMER, Excellent, N/A, sip:tac-loopback2@cisco.com, 2017-08-28T12:12:26, 0, 0, 0
-Graham Sheppard Home DX80 AMER, Excellent, N/A, sip:tac-loopback2@cisco.com, 2017-08-28T12:16:33, 0, 0, 0
-Graham Sheppard Home DX80 AMER, Excellent, N/A, sip:tac-loopback2@cisco.com, 2017-08-28T12:18:56, 0, 0, 0
-Graham Sheppard Home DX80 AMER, Excellent, N/A, sip:tac-loopback2@cisco.com, 2017-08-28T12:22:42, 0, 0, 0
-Graham Sheppard Home DX80 AMER, Excellent, N/A, sip:tac-loopback2@cisco.com, 2017-08-28T13:33:24, 0, 0, 0
-Graham Sheppard Home DX80 AMER, No Response, N/A, sip:ddechiar@cisco.com, 2017-08-28T13:38:13, 4, 0, 0
-Graham Sheppard Home DX80 AMER, Excellent, N/A, sip:tac-loopback2@cisco.com, 2017-08-28T13:42:47, 0, 0, 0
-Graham Sheppard Home DX80 AMER, Poor, N/A, sip:tac-loopback2@cisco.com, 2017-08-28T13:47:15, 0, 0, 0
-Graham Sheppard Home DX80 AMER, Poor, N/A, sip:tac-loopback2@cisco.com, 2017-08-28T13:53:04, 0, 0, 0
-Graham Sheppard Home DX80 AMER, Excellent, N/A, sip:4085256800@cisco.com, 2017-08-28T14:01:50, 29, 0, 0
-Graham Sheppard Home DX80 AMER, Excellent, N/A, sip:4085256800@cisco.com, 2017-08-28T14:31:05, 25, 0, 0
-Graham Sheppard Home DX80 AMER, Excellent, N/A, sip:tac-loopback2@cisco.com, 2017-08-28T14:58:12, 0, 0, 0
-Graham Sheppard Home DX80 AMER, Good, N/A, sip:4085256800@cisco.com, 2017-08-28T15:01:45, 30, 0, 0
-Graham Sheppard Home DX80 AMER, Excellent, N/A, sip:4085256800@cisco.com, 2017-08-29T15:32:20, 13, 0, 0
-Graham Sheppard Home DX80 AMER, Excellent, N/A, sip:4085256800@cisco.com, 2017-08-29T15:47:08, 33, 0, 0
-Graham Sheppard Home DX80 AMER, Excellent, N/A, sip:tac-loopback2@cisco.com, 2017-08-30T08:58:17, 2, 0, 0
-Graham Sheppard Home DX80 AMER, Excellent, N/A, sip:blaveck@acecloud.webex.com, 2017-08-30T12:01:26, 20, 0/0, 0/ 0
-Graham Sheppard Home DX80 AMER, No Response, N/A, sip:ddechiar@cisco.com, 2017-08-30T12:22:18, 3, 0/0, 0/ 0
 Graham Sheppard Home DX80 AMER, Excellent, N/A, sip:4085256800@cisco.com, 2017-08-30T13:11:41, 67, 0/0, 0/0
 Graham Sheppard Home DX80 AMER, Excellent, N/A, sip:loopback.cisco.com@cisco.com, 2017-08-31T09:46:18, 0, 0/0, 0/0
+Graham Sheppard Home DX80 AMER, Excellent, N/A, sip:4085256800@cisco.com, 2017-08-31T09:59:49, 79, 0/0, 0/0
+Graham Sheppard Home DX80 AMER, Excellent, N/A, sip:4085256800@cisco.com, 2017-08-31T09:59:49, 79, 0/0, 0/0

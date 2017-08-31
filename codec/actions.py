@@ -10,9 +10,10 @@ requests.packages.urllib3.disable_warnings(InsecureRequestWarning)
 codec_username = config.codec_username
 codec_password = config.codec_password
 support_number = config.support_number
+server_address = config.server_address
 
 def get_status(host):
-    url = 'http://{}/getxml?location=/Status/Standby'.format(host)
+    url = 'https://{}/getxml?location=/Status/Standby'.format(host)
     try:
         response = requests.get(url, verify=False, timeout=2, auth=(codec_username, codec_password))
         xmlstr = response.content
@@ -23,7 +24,7 @@ def get_status(host):
         return("Down")
 
 def get_sip(host):
-    url = 'http://{}/getxml?location=/Status/SIP/Registration'.format(host)
+    url = 'https://{}/getxml?location=/Status/SIP/Registration'.format(host)
     try:
         response = requests.get(url, verify=False, timeout=2, auth=(codec_username, codec_password))
         xmlstr = response.content
@@ -34,7 +35,7 @@ def get_sip(host):
         return("Down")
 
 def send_survey(host):
-    url = 'http://{}/putxml'.format(host)
+    url = 'httsp://{}/putxml'.format(host)
     payload = survey
     headers = {'Content-Type': 'text/xml'}
     try:
@@ -44,8 +45,8 @@ def send_survey(host):
         return("Failed survey to host: " + host)
 
 def send_register(host):
-    url = 'http://{}/putxml'.format(host)
-    payload = register
+    url = 'https://{}/putxml'.format(host)
+    payload = register.format(server_address)
     headers = {'Content-Type': 'text/xml'}
     try:
         requests.post(url, data=payload, verify=False, timeout=2, headers=headers, auth=(codec_username, codec_password))
@@ -58,7 +59,7 @@ def get_people(host):
     return data
 
 def get_loss(host):
-    url = 'http://{}/getxml?location=/Status/MediaChannels'.format(host)
+    url = 'https://{}/getxml?location=/Status/MediaChannels'.format(host)
     response = requests.get(url, verify=False, timeout=2, auth=(codec_username, codec_password))
     xml_dict = xmltodict.parse(response.content)
     try:
@@ -110,7 +111,7 @@ def get_loss(host):
     return video, audio
 
 def get_diag(host):
-    url = 'http://{}//getxml?location=/Status/Diagnostics'.format(host)
+    url = 'https://{}//getxml?location=/Status/Diagnostics'.format(host)
     try:
         diagresponse = requests.get(url, verify=False, timeout=2, auth=(codec_username, codec_password))
         xmlstr = diagresponse.content
@@ -125,7 +126,7 @@ def get_diag(host):
         return("None")
 
 def get_last(host):
-    url = 'http://{}/putxml'.format(host)
+    url = 'https://{}/putxml'.format(host)
     payload = last
     headers = {'Content-Type': 'text/xml'}
     try:
@@ -145,7 +146,7 @@ def get_last(host):
         return ("Failed getting last call info")
 
 def send_dial(host):
-    url = 'http://{}/putxml'.format(host)
+    url = 'https://{}/putxml'.format(host)
     payload = dial.format(support_number)
     headers = {'Content-Type': 'text/xml'}
     try:

@@ -45,7 +45,7 @@ register = """<?xml version="1.0"?>
 	<HttpFeedback>
 		<Register command="True"> 
 			<FeedbackSlot>1</FeedbackSlot> 
-			<ServerUrl>http://10.116.250.182:5000/codec</ServerUrl> 
+			<ServerUrl>{}</ServerUrl> 
 			<Format>JSON</Format>
 			<Expression item="1">/Event/CallDisconnect</Expression>
 			<Expression item="2">/Event/UserInterface/Message</Expression>
