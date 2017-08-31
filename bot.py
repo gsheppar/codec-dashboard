@@ -183,9 +183,11 @@ def receivepostfromcodec():
         data = json.loads(request.data)
         widget = data['Event']['UserInterface']['Extensions']['Widget']['Action']['WidgetId']['Value']
         action = data['Event']['UserInterface']['Extensions']['Widget']['Action']['Type']['Value']
-        host = ip = data['Event']['Identification']['IPAddress']['Value']
+        host = data['Event']['Identification']['IPAddress']['Value']
         if (widget == "widget_1" and action == "clicked"):
             send_dial(host)
+        else:
+            print "Nothing to do"
     except Exception as e:
         print "Request did not contain any action type: Widget Clicked"
     # Survey feedback response

@@ -9,7 +9,7 @@ requests.packages.urllib3.disable_warnings(InsecureRequestWarning)
 
 codec_username = config.codec_username
 codec_password = config.codec_password
-
+support_number = config.support_number
 
 def get_status(host):
     url = 'http://{}/getxml?location=/Status/Standby'.format(host)

@@ -16,9 +16,9 @@
         "VideoPacketloss": "N/A"
     },
     {
-        "AudioPacketloss": "No",
+        "AudioPacketloss": "N/A",
         "Booked": "N/A",
-        "Call": "Yes",
+        "Call": "No",
         "Diag": "None",
         "DiagAlert": "No",
         "IP": "10.116.250.180",
@@ -29,6 +29,6 @@
         "SIPAlert": "No",
         "Status": "Off",
         "SystemName": "Graham Sheppard Home DX80 AMER",
-        "VideoPacketloss": "No"
+        "VideoPacketloss": "N/A"
     }
 ]
