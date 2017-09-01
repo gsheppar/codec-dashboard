@@ -1,0 +1,12 @@
+[
+    {
+        "Booked": "N/A",
+        "Call Number": "sip:loopback@cisco.com",
+        "Duration": "0",
+        "In/Out Audio Loss": "0/0",
+        "In/Out Video Loss": "0/0",
+        "Quality": "Excellent",
+        "Start Time": "2017-09-01T13:18:23",
+        "SystemName": "Graham Sheppard Home DX80 AMER"
+    }
+]

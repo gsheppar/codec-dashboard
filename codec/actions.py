@@ -35,7 +35,7 @@ def get_sip(host):
         return("Down")
 
 def send_survey(host):
-    url = 'httsp://{}/putxml'.format(host)
+    url = 'https://{}/putxml'.format(host)
     payload = survey
     headers = {'Content-Type': 'text/xml'}
     try:

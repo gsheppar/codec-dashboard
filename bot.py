@@ -65,6 +65,8 @@ def surveys():
     if request.method == 'GET':
         return render_template('surveys.html')
     elif request.method == 'POST':
+        # Check if survey file for this month is there if not create one
+        check_surveyfile()
         surveys = get_surveys()
         return render_template('surveys.html', surveys=surveys)
 
@@ -97,6 +99,8 @@ def dashboard():
 
 @bot.route('/surveygraph', methods=['GET', 'POST'])
 def surveygraph():
+    #Check if survey file for this month is there if not create one
+    check_surveyfile()
     numexcellent = 0
     numgood = 0
     numpoor = 0
@@ -127,14 +131,10 @@ def receivepostfromcodec():
     f.write("\n")
     f.write(request.data)
     #Check if survey file for this month is there if not create one
+    check_surveyfile()
     now = datetime.datetime.now()
     now_str = now.strftime("%Y-%m")
     surveycsv = 'survey/Feedback-{}.csv'.format(now_str)
-    if not os.path.exists(surveycsv):
-        outFile = open(surveycsv, 'w')
-        outFile.write("SystemName, Quality, Booked, Call Number, Start Time, Duration, In/Out Video Loss, In/Out Audio Loss")
-        outFile.close()
-        print "Create new csv survey file"
     # Call Connection and codec check
     try:
         data = json.loads(request.data)
@@ -229,6 +229,18 @@ def receivepostfromcodec():
         return make_response("ok")
 
 ###############################
+
+#check if survey file exsits
+def check_surveyfile():
+    now = datetime.datetime.now()
+    now_str = now.strftime("%Y-%m")
+    surveycsv = 'survey/Feedback-{}.csv'.format(now_str)
+    if not os.path.exists(surveycsv):
+        outFile = open(surveycsv, 'w')
+        outFile.write(
+            "SystemName, Quality, Booked, Call Number, Start Time, Duration, In/Out Video Loss, In/Out Audio Loss")
+        outFile.close()
+        print "Create new csv survey file"
 
 # Check status of codecs
 def check_status():
