@@ -60,8 +60,13 @@ def get_people(host):
 
 def get_loss(host):
     url = 'https://{}/getxml?location=/Status/MediaChannels'.format(host)
-    response = requests.get(url, verify=False, timeout=2, auth=(codec_username, codec_password))
-    xml_dict = xmltodict.parse(response.content)
+    try:
+        response = requests.get(url, verify=False, timeout=2, auth=(codec_username, codec_password))
+        xml_dict = xmltodict.parse(response.content)
+    except:
+        video = "N/A"
+        audio = "N/A"
+        return video, audio 
     try:
         check = xml_dict["Status"]["MediaChannels"]
         if check != "None":
