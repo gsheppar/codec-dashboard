@@ -1,0 +1,32 @@
+[
+    {
+        "Booked": "N/A",
+        "Call Number": "sip:gsheppar@acecloud.webex.com",
+        "Duration": "0",
+        "In/Out Audio Loss": "0/0",
+        "In/Out Video Loss": "0/0",
+        "Quality": "Excellent",
+        "Start Time": "2017-10-02T12:00:13",
+        "SystemName": "Graham Sheppard Home DX80 AMER"
+    },
+    {
+        "Booked": "N/A",
+        "Call Number": "sip:89.105.107.135@cisco",
+        "Duration": "0",
+        "In/Out Audio Loss": "0/0",
+        "In/Out Video Loss": "0/0",
+        "Quality": "No Response",
+        "Start Time": "2017-10-02T18:22:08",
+        "SystemName": "Graham Sheppard Home DX80 AMER"
+    },
+    {
+        "Booked": "N/A",
+        "Call Number": "sip:202.158.196.141@cisco",
+        "Duration": "0",
+        "In/Out Audio Loss": "0/0",
+        "In/Out Video Loss": "0/0",
+        "Quality": "Excellent",
+        "Start Time": "2017-10-02T18:22:13",
+        "SystemName": "Graham Sheppard Home DX80 AMER"
+    }
+]

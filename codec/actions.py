@@ -60,13 +60,15 @@ def get_people(host):
 
 def get_loss(host):
     url = 'https://{}/getxml?location=/Status/MediaChannels'.format(host)
+    video = "No"
+    audio = "No"
     try:
         response = requests.get(url, verify=False, timeout=2, auth=(codec_username, codec_password))
         xml_dict = xmltodict.parse(response.content)
     except:
         video = "N/A"
         audio = "N/A"
-        return video, audio 
+        return video, audio
     try:
         check = xml_dict["Status"]["MediaChannels"]
         if check != "None":
@@ -77,15 +79,23 @@ def get_loss(host):
                     if direction == "Incoming":
                         lossin = float(channel["Netstat"]["Loss"])
                         pksin = float(channel["Netstat"]["Packets"])
+
+                        if lossin == 0:
+                            totalin = 0
+                        else:
+                            totalin = (lossin/pksin)* 100
+                        if (totalin > 5):
+                            video = "Yes"
                     else:
                         lossout = float(channel["Netstat"]["Loss"])
                         pksout = float(channel["Netstat"]["Packets"])
-            totalin = lossin/pksin
-            totalout = lossout/pksout
-            if ((totalin > 5) or (totalout > 5)):
-                video = "Yes"
-            else:
-                video = "No"
+
+                        if lossout == 0:
+                            totalout = 0
+                        else:
+                            totalout = (lossout / pksout) * 100
+                        if (totalout > 5):
+                            video = "Yes"
         else:
             video = "N/A"
     except:
@@ -100,15 +110,23 @@ def get_loss(host):
                     if direction == "Incoming":
                         lossin = float(channel["Netstat"]["Loss"])
                         pksin = float(channel["Netstat"]["Packets"])
+
+                        if lossin == 0:
+                            totalin = 0
+                        else:
+                            totalin = (lossin/pksin)* 100
+                        if (totalin > 5):
+                            audio = "Yes"
                     else:
                         lossout = float(channel["Netstat"]["Loss"])
                         pksout = float(channel["Netstat"]["Packets"])
-            totalin = lossin / pksin
-            totalout = lossout / pksout
-            if ((totalin > 5) or (totalout > 5)):
-                audio = "Yes"
-            else:
-                audio = "No"
+
+                        if lossout == 0:
+                            totalout = 0
+                        else:
+                            totalout = (lossout/pksout)* 100
+                        if (totalout > 5):
+                            audio = "Yes"
         else:
             audio = "N/A"
     except:
