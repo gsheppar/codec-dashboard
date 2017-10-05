@@ -10,6 +10,7 @@ cert.crt*
 cert.pem*
 key.key*
 key.pem*
+/survey/Feedback*
 *log.txt
 
 # C extensions

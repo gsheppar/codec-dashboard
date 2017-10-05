@@ -82,6 +82,7 @@ def get_loss(host):
 
                         if lossin == 0:
                             totalin = 0
+                            print totalin
                         else:
                             totalin = (lossin/pksin)* 100
                         if (totalin > 5):
@@ -140,6 +141,7 @@ def get_diag(host):
         xmlstr = diagresponse.content
         root = etree.fromstring(xmlstr)
         diag = root.xpath('//Status/Diagnostics/Message/Description/text()')
+        diag = [l for l in diag if l != 'No camera is detected']
         if len(diag) == 0:
             diag = "None"
         else:

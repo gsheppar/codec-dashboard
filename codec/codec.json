@@ -1,8 +1,8 @@
 [
     {
-        "AudioPacketloss": "N/A",
+        "AudioPacketloss": "No",
         "Booked": "N/A",
-        "Call": "No",
+        "Call": "Yes",
         "Diag": "None",
         "DiagAlert": "No",
         "IP": "10.116.250.180",
@@ -13,7 +13,7 @@
         "SIPAlert": "No",
         "Status": "Off",
         "SystemName": "Graham Sheppard Home DX80 AMER",
-        "VideoPacketloss": "N/A"
+        "VideoPacketloss": "No"
     },
     {
         "AudioPacketloss": "N/A",
@@ -23,11 +23,11 @@
         "DiagAlert": "No",
         "IP": "10.116.250.184",
         "NetworkAlert": "No",
-        "Occupied": "No",
+        "Occupied": "Yes",
         "People": "N/A",
         "SIP": "Registered",
         "SIPAlert": "No",
-        "Status": "Standby",
+        "Status": "Off",
         "SystemName": "Graham Sheppard Home SX20 AMER",
         "VideoPacketloss": "N/A"
     }
