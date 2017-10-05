@@ -82,7 +82,6 @@ def get_loss(host):
 
                         if lossin == 0:
                             totalin = 0
-                            print totalin
                         else:
                             totalin = (lossin/pksin)* 100
                         if (totalin > 5):
